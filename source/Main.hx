@@ -12,6 +12,12 @@ import lime.system.System;
 
 class Main extends Sprite
 {
+	if (PlayState.SONG.song == 'Bopeebo')
+	{
+		var gameWidth:Int = 960;
+		var gameHeight:Int = 720;
+	}
+	else
 	var gameWidth:Int = 1280; // Width of the game in pixels (might be less / more in actual pixels depending on your zoom).
 	var gameHeight:Int = 720; // Height of the game in pixels (might be less / more in actual pixels depending on your zoom).
 	var initialState:Class<FlxState> = TitleState; // The FlxState the game starts with.
