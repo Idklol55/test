@@ -16,21 +16,7 @@ haxelib git flixel-animate https://github.com/MaybeMaru/flixel-animate --quiet
 haxelib git moonchart https://github.com/MaybeMaru/moonchart --quiet
 haxelib install hxvlc 1.9.2 --quiet
 haxelib install hxcpp 4.3.2 --quiet
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> c81a686 (uuu)
-haxelib install hxcpp-debug-server
 haxelib install hxdiscord_rpc 1.2.4 --quiet
 haxelib install hxjson5 --quiet
 haxelib install flixel-addons 3.0.2 --quiet
 echo Finished!
-<<<<<<< HEAD
-=======
-=======
-haxelib install hxdiscord_rpc 1.2.4 --quiet
-haxelib install hxjson5 --quiet
-haxelib install flixel-addons 3.0.2 --quiet
-echo Finished!
->>>>>>> fba20ed (Initial commit)
->>>>>>> c81a686 (uuu)
