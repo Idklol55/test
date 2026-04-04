@@ -2,9 +2,18 @@
 <project>
 
 	<!-- application stuff -->
-	<app title="Friday Night Funkin': Vs. Camellia" file="Camellia" main="Main" version="3.0.0" company="Camellia" />
+<<<<<<< HEAD
+	<app title="Friday Night Funkin': Vs. Camellia" file="Camellia" packageName="com.never2x.camellia" package="com.never2x.camellia" main="Main" version="3.0.0" company="Camellia" />
+=======
+<<<<<<< HEAD
+	<app title="Friday Night Funkin': Vs. Camellia" file="Camellia" packageName="com.never2x.camellia" package="com.never2x.camellia" main="Main" version="3.0.0" company="Camellia" />
+=======
+	<app title="Friday Night Funkin': Vs. Camellia" file="VS.Camellia V2.7.5" packageName="com.VS.Camellia3" package="com.VS.Camellia3" main="Main" version="3.0.0" company="Camellia"/>
+>>>>>>> fba20ed (Initial commit)
+>>>>>>> c81a686 (uuu)
 
 	<window width="1280" height="720" fps="120" background="#000000" hardware="true" vsync="false" />
+	<window if="mobile" orientation="landscape" fullscreen="true" resizable="false" allow-shaders="true" require-shaders="true" allow-high-dpi="true" vsync="false" />
 	<window orientation="landscape" fullscreen="false" resizable="true"/>
 	<window antialiasing="0" allow-high-dpi="true"/>
 
@@ -12,10 +21,23 @@
 	<!--<define name="IS_TESTBUILD" />-->
 
 	<!-- THIS ALSO AFFECTS MODCHARTS AS WELL KEEP THAT IN MIND -->
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> c81a686 (uuu)
+	<define name="SCRIPTS_ALLOWED" if="desktop"/>
+	<define name="ADDONS_ALLOWED" if="desktop"/>
+	<define name="VIDEOS_ALLOWED" if="cpp"/>
+	<define name="DISCORD_ALLOWED" if="desktop"/>
+<<<<<<< HEAD
+=======
+=======
 	<define name="SCRIPTS_ALLOWED"/>
 	<define name="ADDONS_ALLOWED"/>
 	<define name="VIDEOS_ALLOWED" if="cpp"/>
-	<define name="DISCORD_ALLOWED"/>
+	<!--define name="DISCORD_ALLOWED"/-->
+>>>>>>> fba20ed (Initial commit)
+>>>>>>> c81a686 (uuu)
 	<define name="AWARDS_ALLOWED"/>
 	
 	<!-- makes errors show exactly what the issue is instead of being vague -->
@@ -29,10 +51,21 @@
 	<source path="src" />
 	
 	<!-- use templates for assets -->
-	<section unless="mac">
+	<section unless="mac || android">
 		<assets path="assets" type="template"/>
 		<assets path="addons" type="template" if="ADDONS_ALLOWED"/>
 	</section>
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+
+	<section if="android">
+		<assets path="assets"/>
+		<assets path="addons" if="ADDONS_ALLOWED"/>
+	</section>
+>>>>>>> fba20ed (Initial commit)
+>>>>>>> c81a686 (uuu)
 	
 	<!--
 		...unless we're on macOS, then don't because lime is stupid and places
@@ -43,9 +76,26 @@
 		<assets path="addons" if="ADDONS_ALLOWED"/>
 	</section>
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> c81a686 (uuu)
+	<section if="android">
+		<assets path="assets"/>
+		<assets path="addons" if="ADDONS_ALLOWED"/>
+	</section>
+
 	<!-- libraries -->
-	<haxelib name="lime" version="8.1.2" />
+	<haxelib name="lime" />
 	<haxelib name="openfl" version="9.3.3" />
+<<<<<<< HEAD
+=======
+=======
+	<!-- libraries -->
+	<haxelib name="lime"/>
+	<haxelib name="openfl"/>
+>>>>>>> fba20ed (Initial commit)
+>>>>>>> c81a686 (uuu)
 	<haxelib name="flixel" version="5.5.0" />
 	<haxelib name="flixel-addons" version="3.0.2"/>
 	<haxelib name="hxdiscord_rpc" version="1.2.4" if="DISCORD_ALLOWED"/>
@@ -57,10 +107,13 @@
 	<haxelib name="hscript-iris" if="SCRIPTS_ALLOWED"/>
 	<haxelib name="hscript" if="debug" /> <!-- for debugging -->
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> c81a686 (uuu)
 	<!-- miscellaneous -->
 
-
-	<define name="FLX_NO_TOUCH" />
+	<!--<define name="FLX_NO_TOUCH" />-->
 	<!--<define name="FLX_NO_GAMEPAD"/>-->
 	<define name="FLX_NO_DEBUG" unless="debug" />
 
@@ -69,6 +122,31 @@
 	<haxedef name="HXCPP_CHECK_POINTER" />
 	<haxedef name="HXCPP_STACK_LINE" />
 	<haxedef name="HXCPP_STACK_TRACE" />
+<<<<<<< HEAD
+=======
+=======
+	<haxelib name="extension-androidtools" if="android" />
+
+	<!-- miscellaneous -->
+
+	<!--define name="FLX_NO_TOUCH" unless="mobile" /-->
+	<!--<define name="FLX_NO_GAMEPAD"/>-->
+	<define name="FLX_NO_DEBUG" unless="debug" />
+
+	<define name="HXCPP_CHECK_POINTER" />
+	<define name="HXCPP_STACK_LINE" />
+	<define name="HXCPP_STACK_TRACE" />
+	<define name="HXCPP_CATCH_SEGV" />
+
+	<define name="HXCPP_GC_DISABLE" />
+	<define name="HXCPP_GC_DYNAMIC_SIZE" />
+	<define name="HXCPP_ALIGN_ALLOC"/>
+	<define name="HXCPP_GC_GENERATIONAL" />
+	<define name="HXCPP_GC_BIG_BLOCKS"/>
+
+	<haxedef name="lime_threads" if="cpp || hl || neko || java || cs || nodejs" />
+>>>>>>> fba20ed (Initial commit)
+>>>>>>> c81a686 (uuu)
 
 	<define name="IRIS_DEBUG"/>
 	<define name="hscriptPos"/>
@@ -82,6 +160,18 @@
 	<assets path="alsoft.txt" rename="alsoft.ini" type="text" if="windows"/>
 	<assets path="alsoft.txt" rename="alsoft.conf" type="text" unless="windows"/>
 
+<<<<<<< HEAD
+	<!-- Do whatever you want I'm tired uninstall and install everytime -->
+	<certificate path="key.keystore" password="psychengine" alias="psychport" alias-password="psychengine" if="android" unless="debug" />
+
+=======
+<<<<<<< HEAD
+	<!-- Do whatever you want I'm tired uninstall and install everytime -->
+	<certificate path="key.keystore" password="psychengine" alias="psychport" alias-password="psychengine" if="android" unless="debug" />
+
+=======
+>>>>>>> fba20ed (Initial commit)
+>>>>>>> c81a686 (uuu)
 	<icon path="icons/icon16.png" size='16' />
 	<icon path="icons/icon32.png" size='32' />
 	<icon path="icons/icon64.png" size='64' />
@@ -91,4 +181,22 @@
 	<icon path="icons/iconOG.png" />
 
 	<haxeflag name="--macro" value="allowPackage('flash')" />
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+	
+	<certificate path="key.keystore" password="novaFlare" alias="psychport" alias-password="novaFlare" if="android" unless="debug" />
+
+	<config>
+		<android gradle-version="8.7" />
+		<android gradle-plugin="8.6.0" />
+		<android minimum-sdk-version="24" />
+		<android target-sdk-version= "35" />
+		<!--Fuck you xcode-->
+		<ios deployment="13.6"/>
+	</config>
+
+>>>>>>> fba20ed (Initial commit)
+>>>>>>> c81a686 (uuu)
 </project>
