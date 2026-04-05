@@ -42,7 +42,7 @@ jobs:
       - name: Install Haxelib
         run: |
           haxelib setup ~/haxelib
-          haxelib install lime 8.1.2 --quiet
+          haxelib git lime https://github.com/kittycathy233/lime --quiet
           haxelib install openfl 9.3.3 --quiet
           haxelib install flixel 5.5.0 --quiet
           haxelib git hscript-iris https://github.com/crowplexus/hscript-iris --quiet
@@ -54,7 +54,6 @@ jobs:
           haxelib install hxdiscord_rpc 1.2.4 --quiet
           haxelib install hxjson5 --quiet
           haxelib install flixel-addons 3.0.2 --quiet
-          haxelib git extension-androidtools https://github.com/NovaFlare-Engine-haxelib/extension-androidtools-2.1.1 --quiet
           haxelib list
       
       - name: Setup Lime
