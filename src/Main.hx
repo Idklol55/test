@@ -148,6 +148,10 @@ class InitState extends flixel.FlxState {
 		FlxG.autoPause = Settings.data.autoPause;
 		FlxAudioHandler.init();
 
+		#if android
+		FlxG.android.preventDefaultKeys = [BACK];
+		#end
+
 		FlxG.signals.focusGained.add(()->{
 			FlxAudioHandler.onFocus();
 		});
