@@ -117,8 +117,8 @@ class CopyState extends FlxState
 						FileSystem.createDirectory(folder);
 					File.saveContent(folder + Date.now().toString().replace(' ', '-').replace(':', "'") + '-CopyState' + '.txt', failedFilesStack.join('\n'));
 				}
-				
-				FlxG.sound.play(Paths.audio('confirmMenu')).onComplete = () ->
+
+				FlxG.sound.play(Paths.audio("menu_confirm", 'sfx')).onComplete = () ->
 				{
 					flixel.FlxG.switchState(new TitleState());
 				};
