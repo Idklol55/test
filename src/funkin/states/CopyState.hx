@@ -153,7 +153,7 @@ class CopyState extends FlxState
 					{
 						var path:String = '';
 						#if android
-						if (file.startsWith('mods/'))
+						if (file.startsWith('addon/'))
 							path = StorageUtil.getExternalStorageDirectory() + file;
 						else
 						#end
@@ -180,7 +180,7 @@ class CopyState extends FlxState
 		var fileName = Path.withoutDirectory(file);
 		var directory = Path.directory(file);
 		#if android
-		if (fileName.startsWith('mods/'))
+		if (fileName.startsWith('addon/'))
 			directory = StorageUtil.getExternalStorageDirectory() + directory;
 		#end
 		try
@@ -231,12 +231,12 @@ class CopyState extends FlxState
 
 		// removes unwanted assets
 		var assets = locatedFiles.filter(folder -> folder.startsWith('assets/'));
-		var mods = locatedFiles.filter(folder -> folder.startsWith('mods/'));
-		locatedFiles = assets.concat(mods);
+		var addon = locatedFiles.filter(folder -> folder.startsWith('addon/'));
+		locatedFiles = assets.concat(addon);
 		locatedFiles = locatedFiles.filter(file -> !FileSystem.exists(file));
 		#if android
 		for (file in locatedFiles)
-			if (file.startsWith('mods/'))
+			if (file.startsWith('addon/'))
 				locatedFiles = locatedFiles.filter(file -> !FileSystem.exists(StorageUtil.getExternalStorageDirectory() + file));
 		#end
 
