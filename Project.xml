@@ -86,15 +86,6 @@
 
 	<certificate path="key.keystore" password="novaFlare" alias="psychport" alias-password="novaFlare" if="android" unless="debug" />
 
-	<config>
-		<android gradle-version="8.7" />
-		<android gradle-plugin="8.6.0" />
-		<android minimum-sdk-version="24" />
-		<android target-sdk-version= "35" />
-		<!--Fuck you xcode-->
-		<ios deployment="13.6"/>
-	</config>
-
 	<icon path="icons/icon16.png" size='16' />
 	<icon path="icons/icon32.png" size='32' />
 	<icon path="icons/icon64.png" size='64' />
