@@ -18,8 +18,8 @@ class Addons {
 
 	public static function load() {
 		#if ADDONS_ALLOWED
-		for (i => id in FileSystem.readDirectory(folder)) {
-			if (!FileSystem.isDirectory('$folder/$id')) continue;
+		for (i => id in PsychFileSystem.readDirectory(folder)) {
+			if (!PsychFileSystem.isDirectory('$folder/$id')) continue;
 			var addon:Addon = getFile(id);
 			list.push(addon);
 
@@ -55,12 +55,12 @@ class Addons {
 		var path:String = '$folder/$name/meta.json';
 
 		#if ADDONS_ALLOWED
-		if (!FileSystem.exists(path)) {
+		if (!PsychFileSystem.exists(path)) {
 			file.name = 'Unknown ($name)';
 			return file;
 		}
 
-		var rawFile = Json5.parse(sys.io.File.getContent(path));
+		var rawFile = Json5.parse(PsychFile.getContent(path));
 		for (property in Reflect.fields(rawFile)) {
 			// ??????? ok i guess no `Reflect.hasField()` for you
 			if (!Reflect.fields(file).contains(property)) continue;
