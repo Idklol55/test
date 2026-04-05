@@ -20,12 +20,12 @@ class ScriptHandler {
 		#end
 
 		for (directory in directories) {
-			if (!FileSystem.exists('$directory/$path')) continue;
+			if (!PsychFileSystem.exists('$directory/$path')) continue;
 
-			for (file in FileSystem.readDirectory('$directory/$path')) {
+			for (file in PsychFileSystem.readDirectory('$directory/$path')) {
 				final absPath:String = '$directory/$path/$file';
 
-				if (FileSystem.isDirectory(absPath)) continue;
+				if (PsychFileSystem.isDirectory(absPath)) continue;
 				if (!file.endsWith('.hx')) continue;
 
 				loadFile(absPath);
@@ -34,7 +34,7 @@ class ScriptHandler {
 	}
 
 	public static function loadFile(dir:String):Script {
-		if (!FileSystem.exists(dir)) return null;
+		if (!PsychFileSystem.exists(dir)) return null;
 		
 		var script:Script = new Script(dir);
 		script.set('game', PlayState.self);
@@ -117,7 +117,7 @@ class Script extends Iris {
 
 	public function new(dir:String) {
 		disposed = false;
-		super(File.getContent(dir), {name: dir, autoRun: false, autoPreset: true});
+		super(PsychFile.getContent(dir), {name: dir, autoRun: false, autoPreset: true});
 
 		set('closeFile', function() {
 			destroy();
