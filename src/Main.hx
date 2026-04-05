@@ -116,7 +116,7 @@ class InitState extends flixel.FlxState {
 		if (!CopyState.checkExistingFiles())
 		{
 			flixel.FlxG.switchState(new CopyState());
-		 };
+		}
 	}
 
 	private function setDefines() {
