@@ -113,7 +113,7 @@ class InitState extends flixel.FlxState {
 		Controls.load();
 		Settings.load();
 		Scores.load();
-		#if DISCORD_ALLOWED DiscordClient.start(); #end
+		DiscordClient.start();
 		Addons.load();
 		Awards.load();
 		Meta.cacheFiles();
@@ -178,7 +178,7 @@ class InitState extends flixel.FlxState {
 		FlxG.sound.volume = FlxG.save.data.volume ?? 1.0;
 		FlxG.sound.muted = FlxG.save.data.muted ?? false;
 		FlxG.sound.volumeHandler(FlxG.sound.muted ? 0 : FlxG.sound.volume);
-		#if !mobile
+		#if desktop
 		FlxG.game.soundTray.updateWithSettings();
 		#end
 
