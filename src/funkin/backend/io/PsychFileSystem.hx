@@ -23,7 +23,7 @@
 package funkin.backend.io;
 
 import openfl.Assets;
-import mobile.backend.StorageUtil;
+import funkin.mobile.backend.StorageUtil;
 #if sys
 import sys.FileSystem;
 import sys.FileStat;
