@@ -62,8 +62,8 @@ class CopyState extends FlxState
 		checkExistingFiles();
 		if (maxLoopTimes <= 0)
 		{
-			flixel.FlxG.switchState(new TitleState());
-			return;
+		//	flixel.FlxG.switchState(new TitleState());
+		//	return;
 		}
 
 		CoolUtil.showPopUp("Seems like you have some missing files that are necessary to run the game\nPress OK to begin the copy process", "Notice!");
@@ -118,7 +118,7 @@ class CopyState extends FlxState
 					File.saveContent(folder + Date.now().toString().replace(' ', '-').replace(':', "'") + '-CopyState' + '.txt', failedFilesStack.join('\n'));
 				}
 
-				FlxG.sound.play(Paths.audio("menu_confirm", 'sfx')).onComplete = () ->
+				FlxG.sound.play(Paths.audio("menu_finish", 'sfx')).onComplete = () ->
 				{
 					flixel.FlxG.switchState(new TitleState());
 				};
