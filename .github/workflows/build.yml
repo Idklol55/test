@@ -54,6 +54,7 @@ jobs:
           haxelib install hxdiscord_rpc 1.2.4 --quiet
           haxelib install hxjson5 --quiet
           haxelib install flixel-addons 3.0.2 --quiet
+          haxelib git extension-androidtools https://github.com/NovaFlare-Engine-haxelib/extension-androidtools-2.1.1 --quiet
           haxelib list
       
       - name: Setup Lime
