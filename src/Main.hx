@@ -178,9 +178,9 @@ class InitState extends flixel.FlxState {
 		FlxG.sound.volume = FlxG.save.data.volume ?? 1.0;
 		FlxG.sound.muted = FlxG.save.data.muted ?? false;
 		FlxG.sound.volumeHandler(FlxG.sound.muted ? 0 : FlxG.sound.volume);
-		#if desktop
+		//#if desktop
 		FlxG.game.soundTray.updateWithSettings();
-		#end
+		//#end
 
 		openfl.Lib.application.window.onClose.add(function () {
 			Main.isClosing = true;
