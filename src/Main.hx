@@ -29,9 +29,15 @@ class Main extends Sprite {
 	public function new() {
 		super();
 
-		//Lib.current.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onCrash);
-
+		#if mobile
+		#if android
+		StorageUtil.requestPermissions();
+		#end
+		Sys.setCwd(StorageUtil.getStorageDirectory());
+		#end
 		funkin.backend.CrashHandler.init();
+
+		//Lib.current.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onCrash);
 
 		addChild(new FlxGame(InitState, 1280, 720, 60, true));
 		addChild(fpsCounter = new FPSCounter(10, 10, 12));
@@ -107,7 +113,10 @@ class Main extends Sprite {
 class InitState extends flixel.FlxState {
 	override function create():Void {
 		setDefines();
-		flixel.FlxG.switchState(new TitleState());
+		if (!CopyState.checkExistingFiles())
+		{
+			flixel.FlxG.switchState(new CopyState());
+		 };
 	}
 
 	private function setDefines() {
