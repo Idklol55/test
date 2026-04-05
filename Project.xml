@@ -5,7 +5,7 @@
 	<app title="Friday Night Funkin': Vs. Camellia" file="Camellia" packageName="com.never2x.camellia" package="com.never2x.camellia" main="Main" version="3.0.0" company="Camellia" />
 
 	<window width="1280" height="720" fps="120" background="#000000" hardware="true" vsync="false" />
-	<window if="mobile" orientation="landscape" fullscreen="true" resizable="false" allow-shaders="true" require-shaders="true" />
+	<window if="mobile" orientation="landscape" fullscreen="true" resizable="false" allow-shaders="true" require-shaders="true" allow-high-dpi="true" vsync="false" />
 	<window orientation="landscape" fullscreen="false" resizable="true"/>
 	<window antialiasing="0" allow-high-dpi="true"/>
 
