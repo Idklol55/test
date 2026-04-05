@@ -4,8 +4,8 @@
 	<!-- application stuff -->
 	<app title="Friday Night Funkin': Vs. Camellia" file="Camellia" packageName="com.never2x.camellia" package="com.never2x.camellia" main="Main" version="3.0.0" company="Camellia" />
 
-	<window width="1280" height="720" fps="60" background="#000000" hardware="true" vsync="false" />
-	<window if="mobile" orientation="landscape" fullscreen="true" resizable="false" allow-shaders="true" require-shaders="true" allow-high-dpi="true" vsync="false" />
+	<window width="1280" height="720" fps="120" background="#000000" hardware="true" vsync="false" />
+	<window if="mobile" orientation="landscape" fullscreen="true" resizable="false" allow-shaders="true" require-shaders="true" />
 	<window orientation="landscape" fullscreen="false" resizable="true"/>
 	<window antialiasing="0" allow-high-dpi="true"/>
 
@@ -58,9 +58,8 @@
 	<haxelib name="hscript-iris" if="SCRIPTS_ALLOWED"/>
 	<haxelib name="hscript" if="debug" /> <!-- for debugging -->
 
-	<!--<haxelib name="extension-androidtools" if="android" />-->
-
 	<!-- miscellaneous -->
+
 
 	<!--<define name="FLX_NO_TOUCH" />-->
 	<!--<define name="FLX_NO_GAMEPAD"/>-->
