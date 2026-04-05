@@ -106,7 +106,7 @@ class Main extends Sprite {
 
 class InitState extends flixel.FlxState {
 	override function create():Void {
-		//setDefines();
+		setDefines();
 		flixel.FlxG.switchState(new TitleState());
 	}
 
