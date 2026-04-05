@@ -44,7 +44,7 @@ jobs:
           haxelib setup ~/haxelib
           haxelib git extension-androidtools https://github.com/NovaFlare-Engine-haxelib/extension-androidtools-2.1.1 --quiet
           haxelib git lime https://github.com/NovaFlare-Engine-haxelib/lime-8.2.2 --quiet
-          haxelib install openfl 9.3.3 --quiet
+          haxelib git openfl https://github.com/NovaFlare-Engine-haxelib/openfl-9.4.2 --quiet
           haxelib install flixel 5.5.0 --quiet
           haxelib git hscript-iris https://github.com/crowplexus/hscript-iris --quiet
           haxelib git flixel-animate https://github.com/MaybeMaru/flixel-animate --quiet
