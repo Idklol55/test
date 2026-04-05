@@ -120,7 +120,7 @@ class CopyState extends FlxState
 				
 				FlxG.sound.play(Paths.sound('confirmMenu')).onComplete = () ->
 				{
-					MusicBeatState.switchState(new TitleState());
+					flixel.FlxG.switchState(new TitleState());
 				};
 		
 				canUpdate = false;
