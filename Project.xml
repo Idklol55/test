@@ -45,7 +45,7 @@
 	</section>
 
 	<!-- libraries -->
-	<haxelib name="lime" />
+	<haxelib name="lime"/>
 	<haxelib name="openfl"/>
 	<haxelib name="flixel" version="5.5.0" />
 	<haxelib name="flixel-addons" version="3.0.2"/>
