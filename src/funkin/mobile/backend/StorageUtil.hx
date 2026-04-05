@@ -87,8 +87,8 @@ class StorageUtil
 
 		try
 		{
-			if (!FileSystem.exists(StorageUtil.getExternalStorageDirectory() + 'addon'))
-				FileSystem.createDirectory(StorageUtil.getExternalStorageDirectory() + 'addon');
+			if (!FileSystem.exists(StorageUtil.getExternalStorageDirectory() + 'addons'))
+				FileSystem.createDirectory(StorageUtil.getExternalStorageDirectory() + 'addons');
 		}
 		catch (e:Dynamic)
 		{
