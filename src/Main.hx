@@ -29,7 +29,7 @@ class Main extends Sprite {
 	public function new() {
 		super();
 
-		Lib.current.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onCrash);
+		//Lib.current.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onCrash);
 
 		addChild(new FlxGame(InitState, 1280, 720, 60, true));
 		addChild(fpsCounter = new FPSCounter(10, 10, 12));
