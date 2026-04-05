@@ -266,7 +266,7 @@ class Paths {
 		return list;
 	}
 
-	// basically sys.io.PsychFile.getContent() but a failsafe if the file doesn't exist
+	// basically sys.io.File.getContent() but a failsafe if the file doesn't exist
 	public static function getFileContent(path:String):String {
 		path = get(path);
 		if (!PsychFileSystem.exists(path)) return '';
