@@ -23,7 +23,7 @@
 package funkin.states;
 
 //#if COPYSTATE_ALLOWED
-import states.TitleState;
+import funkin.states.TitleState;
 import lime.utils.Assets as LimeAssets;
 import openfl.utils.Assets as OpenFLAssets;
 import openfl.utils.ByteArray;
@@ -36,7 +36,7 @@ import lime.system.ThreadPool;
  * ...
  * @author: Karim Akra
  */
-class CopyState extends MusicBeatState
+class CopyState extends FlxState
 {
 	private static final textFilesExtensions:Array<String> = ['ini', 'txt', 'xml', 'hxs', 'hx', 'lua', 'json', 'frag', 'vert'];
 	public static final IGNORE_FOLDER_FILE_NAME:String = "CopyState-Ignore.txt";
