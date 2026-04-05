@@ -11,6 +11,8 @@ import openfl.Lib;
 import openfl.display.Sprite;
 import openfl.events.UncaughtErrorEvent;
 
+import funkin.states.CopyState;
+
 #if (linux && !debug)
 @:cppInclude('../../../../src/_external/gamemode_client.h') // i don't care enough to properly point back to the src folder whatever it works fuck you
 @:cppFileCode('#define GAMEMODE_AUTO')
@@ -39,7 +41,7 @@ class Main extends Sprite {
 
 		//Lib.current.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onCrash);
 
-		addChild(new FlxGame(InitState, 1280, 720, 60, true));
+		addChild(new FlxGame(#if mobile !CopyState.checkExistingFiles() ? CopyState : #end InitState, 1280, 720, 60, true));
 		addChild(fpsCounter = new FPSCounter(10, 10, 12));
 		fpsCounter.visible = Settings.data.fpsCounter;
 		addChild(awardsCard = new AwardCard());
@@ -112,11 +114,6 @@ class Main extends Sprite {
 
 class InitState extends flixel.FlxState {
 	override function create():Void {
-		if (!CopyState.checkExistingFiles())
-		{
-			flixel.FlxG.switchState(new CopyState());
-			return;
-		}
 		setDefines();
 		flixel.FlxG.switchState(new TitleState());
 	}
