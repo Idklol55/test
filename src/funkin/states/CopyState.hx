@@ -62,8 +62,8 @@ class CopyState extends FlxState
 		checkExistingFiles();
 		if (maxLoopTimes <= 0)
 		{
-		//	flixel.FlxG.switchState(new TitleState());
-		//	return;
+			flixel.FlxG.switchState(new TitleState());
+			return;
 		}
 
 		CoolUtil.showPopUp("Seems like you have some missing files that are necessary to run the game\nPress OK to begin the copy process", "Notice!");
