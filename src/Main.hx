@@ -117,6 +117,7 @@ class InitState extends flixel.FlxState {
 		{
 			flixel.FlxG.switchState(new CopyState());
 		}
+		flixel.FlxG.switchState(new TitleState());
 	}
 
 	private function setDefines() {
