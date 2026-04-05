@@ -55,7 +55,7 @@ class StorageUtil
 	#if android
 	// always force path due to haxe
 	public static function getExternalStorageDirectory():String
-		return '/sdcard/.PsychEngine073/';
+		return "/sdcard/.${lime.app.Application.current.meta.get('file')}/";
 
 	public static function requestPermissions():Void
 	{
