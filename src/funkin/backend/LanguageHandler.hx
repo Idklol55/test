@@ -17,13 +17,13 @@ class LanguageHandler {
 		for(addon in Addons.list){
 			if(addon.disabled)continue;
 			var path = 'addons/${addon.id}/data/Translations.csv';
-			if(!FileSystem.exists(path))continue;
+			if(!PsychFileSystem.exists(path))continue;
 			translationFiles.push(path);
 		}
 		#end
 		
 		for(path in translationFiles){
-			final csvData = File.getContent(path);
+			final csvData = PsychFile.getContent(path);
 			final lines = csvData.split("\n");
 			if (lines.length == 0) continue;
 
