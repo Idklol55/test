@@ -1,28 +1,6 @@
-/*
- * Copyright (C) 2025 Mobile Porting Team
- *
- * Permission is hereby granted, free of charge, to any person obtaining a
- * copy of this software and associated documentation files (the "Software"),
- * to deal in the Software without restriction, including without limitation
- * the rights to use, copy, modify, merge, publish, distribute, sublicense,
- * and/or sell copies of the Software, and to permit persons to whom the
- * Software is furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
- * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
- * DEALINGS IN THE SOFTWARE.
- */
-
 package funkin.states;
 
-//#if COPYSTATE_ALLOWED
+#if mobile
 import funkin.states.TitleState;
 import lime.utils.Assets as LimeAssets;
 import openfl.utils.Assets as OpenFLAssets;
@@ -62,7 +40,7 @@ class CopyState extends FlxState
 		checkExistingFiles();
 		if (maxLoopTimes <= 0)
 		{
-			flixel.FlxG.switchState(new TitleState());
+			FlxG.resetGame();
 			return;
 		}
 
@@ -117,12 +95,12 @@ class CopyState extends FlxState
 						FileSystem.createDirectory(folder);
 					File.saveContent(folder + Date.now().toString().replace(' ', '-').replace(':', "'") + '-CopyState' + '.txt', failedFilesStack.join('\n'));
 				}
-				
-				FlxG.sound.play(Paths.audio("menu_finish", 'sfx'));
-				new FlxTimer().start(0.5, (tmr) ->
+
+				FlxG.sound.play(Paths.audio("menu_finish", 'sfx')).onComplete = () ->
 				{
-					flixel.FlxG.switchState(new TitleState());
-				});
+					FlxG.resetGame();
+				};
+
 				canUpdate = false;
 			}
 
@@ -247,7 +225,7 @@ class CopyState extends FlxState
 			if (filesToRemove.contains(file))
 				continue;
 
-			if(file.endsWith(IGNORE_FOLDER_FILE_NAME) && !directoriesToIgnore.contains(Path.directory(file)))
+			if (file.endsWith(IGNORE_FOLDER_FILE_NAME) && !directoriesToIgnore.contains(Path.directory(file)))
 				directoriesToIgnore.push(Path.directory(file));
 
 			if (directoriesToIgnore.length > 0)
@@ -267,4 +245,4 @@ class CopyState extends FlxState
 		return (maxLoopTimes <= 0);
 	}
 }
-//#end
+#end
