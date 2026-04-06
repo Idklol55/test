@@ -1,4 +1,4 @@
-package backend.io;
+package funkin.backend.io;
 
 import openfl.Assets;
 #if sys
@@ -36,7 +36,7 @@ class File
 
 	public static function getContent(path:String):Null<String>
 	{
-		#if FEATURE_MODS
+		#if ADDONS_ALLOWED
 		#if linux
 		var actualPath:String = cwd(path);
 		actualPath = getCaseInsensitivePath(path);
@@ -58,7 +58,7 @@ class File
 
 	public static function getBytes(path:String):Null<haxe.io.Bytes>
 	{
-		#if FEATURE_MODS
+		#if ADDONS_ALLOWED
 		#if linux
 		var actualPath:String = cwd(path);
 		actualPath = getCaseInsensitivePath(path);
@@ -86,21 +86,21 @@ class File
 
 	public static function saveContent(path:String, content:String):Void
 	{
-		#if FEATURE_MODS
+		#if ADDONS_ALLOWED
 		SysFile.saveContent(cwd(path), cwd(content));
 		#end
 	}
 
 	public static function saveBytes(path:String, bytes:haxe.io.Bytes):Void
 	{
-		#if FEATURE_MODS
+		#if ADDONS_ALLOWED
 		SysFile.saveBytes(cwd(path), bytes);
 		#end
 	}
 
 	public static function read(path:String, binary:Bool = true):Null<#if sys FileInput #else Dynamic #end>
 	{
-		#if FEATURE_MODS
+		#if ADDONS_ALLOWED
 		#if linux
 		var actualPath:String = cwd(path);
 		actualPath = getCaseInsensitivePath(path);
@@ -117,7 +117,7 @@ class File
 
 	public static function write(path:String, binary:Bool = true):Null<#if sys FileOutput #else Dynamic #end>
 	{
-		#if FEATURE_MODS
+		#if ADDONS_ALLOWED
 		#if linux
 		var actualPath:String = cwd(path);
 		actualPath = getCaseInsensitivePath(path);
@@ -134,7 +134,7 @@ class File
 
 	public static function append(path:String, binary:Bool = true):Null<#if sys FileOutput #else Dynamic #end>
 	{
-		#if FEATURE_MODS
+		#if ADDONS_ALLOWED
 		#if linux
 		var actualPath:String = cwd(path);
 		actualPath = getCaseInsensitivePath(path);
@@ -151,7 +151,7 @@ class File
 
 	public static function update(path:String, binary:Bool = true):Null<#if sys FileOutput #else Dynamic #end>
 	{
-		#if FEATURE_MODS
+		#if ADDONS_ALLOWED
 		#if linux
 		var actualPath:String = cwd(path);
 		actualPath = getCaseInsensitivePath(path);
@@ -168,7 +168,7 @@ class File
 
 	public static function copy(srcPath:String, dstPath:String):Void
 	{
-		#if FEATURE_MODS
+		#if ADDONS_ALLOWED
 		#if linux
 		var actualSrc:String = cwd(srcPath);
 		actualSrc = getCaseInsensitivePath(actualSrc);
@@ -181,7 +181,7 @@ class File
 		#end
 	}
 
-	#if (linux && FEATURE_MODS)
+	#if (linux && ADDONS_ALLOWED)
 	static function getCaseInsensitivePath(path:String):String
 	{
 		if (SysFileSystem.exists(path))
