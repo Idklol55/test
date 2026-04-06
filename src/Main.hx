@@ -31,13 +31,13 @@ class Main extends Sprite {
 	public function new() {
 		super();
 
+		funkin.backend.CrashHandler.init();
 		#if mobile
+		Sys.setCwd(StorageUtil.getStorageDirectory());
 		#if android
 		StorageUtil.requestPermissions();
 		#end
-		Sys.setCwd(StorageUtil.getStorageDirectory());
 		#end
-		funkin.backend.CrashHandler.init();
 
 		//Lib.current.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onCrash);
 
@@ -114,6 +114,10 @@ class Main extends Sprite {
 
 class InitState extends flixel.FlxState {
 	override function create():Void {
+		#if android
+		FlxG.android.preventDefaultKeys = [BACK];
+		#end
+
 		setDefines();
 		flixel.FlxG.switchState(new TitleState());
 	}
@@ -145,10 +149,6 @@ class InitState extends flixel.FlxState {
 		FlxG.cameras.useBufferLocking = true;
 		FlxG.autoPause = Settings.data.autoPause;
 		FlxAudioHandler.init();
-
-		#if android
-		FlxG.android.preventDefaultKeys = [BACK];
-		#end
 
 		FlxG.signals.focusGained.add(()->{
 			FlxAudioHandler.onFocus();
