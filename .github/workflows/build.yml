@@ -42,8 +42,8 @@ jobs:
       - name: Install Haxelib
         run: |
           haxelib setup ~/haxelib
-          haxelib git lime https://github.com/ShadowEngineTeam/lime --quiet
-          haxelib git openfl https://github.com/FunkinCrew/openfl --quiet
+          haxelib git lime https://github.com/kittycathy233/lime --quiet
+          haxelib install openfl 9.4.2 --quiet
           haxelib install flixel 5.5.0 --quiet
           haxelib git hscript-iris https://github.com/crowplexus/hscript-iris --quiet
           haxelib git flixel-animate https://github.com/MaybeMaru/flixel-animate --quiet
