@@ -41,7 +41,7 @@ class Main extends Sprite {
 
 		//Lib.current.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onCrash);
 
-		addChild(new FlxGame(InitState, 1280, 720, 60, true));
+		addChild(new FlxGame(InitState, 1280, 720, 60, true, true));
 		addChild(fpsCounter = new FPSCounter(10, 10, 12));
 		fpsCounter.visible = Settings.data.fpsCounter;
 		addChild(awardsCard = new AwardCard());
