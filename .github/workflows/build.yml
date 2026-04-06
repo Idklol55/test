@@ -42,7 +42,7 @@ jobs:
       - name: Install Haxelib
         run: |
           haxelib setup ~/haxelib
-          haxelib git lime https://github.com/kittycathy233/lime --quiet
+          haxelib install lime 8.1.2 --quiet
           haxelib install openfl 9.3.3 --quiet
           haxelib install flixel 5.5.0 --quiet
           haxelib git hscript-iris https://github.com/crowplexus/hscript-iris --quiet
