@@ -36,7 +36,7 @@ import lime.system.ThreadPool;
  * ...
  * @author: Karim Akra
  */
-class CopyState extends FlxState
+class CopyState extends FunkinState
 {
 	private static final textFilesExtensions:Array<String> = ['ini', 'txt', 'xml', 'hxs', 'hx', 'lua', 'json', 'frag', 'vert'];
 	public static final IGNORE_FOLDER_FILE_NAME:String = "CopyState-Ignore.txt";
@@ -118,11 +118,11 @@ class CopyState extends FlxState
 					File.saveContent(folder + Date.now().toString().replace(' ', '-').replace(':', "'") + '-CopyState' + '.txt', failedFilesStack.join('\n'));
 				}
 				
-				FlxG.sound.play(Paths.audio("menu_finish", 'sfx')).onComplete = () ->
+				FlxG.sound.play(Paths.audio("menu_finish", 'sfx'));
+				new FlxTimer().start(0.5, (tmr) ->
 				{
 					flixel.FlxG.switchState(new TitleState());
-				};
-
+				});
 				canUpdate = false;
 			}
 
