@@ -13,7 +13,7 @@ import openfl.events.UncaughtErrorEvent;
 
 #if mobile
 import funkin.states.CopyState;
-end
+#end
 
 #if (linux && !debug)
 @:cppInclude('../../../../src/_external/gamemode_client.h') // i don't care enough to properly point back to the src folder whatever it works fuck you
