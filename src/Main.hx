@@ -120,11 +120,6 @@ class Main extends Sprite {
 
 class InitState extends flixel.FlxState {
 	override function create():Void {
-
-		#if mobile
-		FlxG.fullscreen = true;
-		#end
-
 		#if mobile
 		if (!CopyState.checkExistingFiles())
 		{
