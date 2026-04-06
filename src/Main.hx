@@ -29,15 +29,15 @@ class Main extends Sprite {
 	public static var tweenManager:FlxTweenManager = null;
 
 	public function new() {
-		super();
-
+		funkin.backend.CrashHandler.init();
 		#if mobile
+		Sys.setCwd(StorageUtil.getStorageDirectory());
 		#if android
 		StorageUtil.requestPermissions();
 		#end
-		Sys.setCwd(StorageUtil.getStorageDirectory());
 		#end
-		funkin.backend.CrashHandler.init();
+
+		super();
 
 		//Lib.current.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onCrash);
 
@@ -114,6 +114,13 @@ class Main extends Sprite {
 
 class InitState extends flixel.FlxState {
 	override function create():Void {
+		#if android
+		if (!FileSystem.exists(haxe.io.Path.addTrailingSlash(lime.system.System.applicationStorageDirectory) + "useExternal.txt"))
+		{
+			File.saveContent(haxe.io.Path.addTrailingSlash(lime.system.System.applicationStorageDirectory) + "useExternal.txt", 'false');
+			Sys.setCwd(StorageUtil.getStorageDirectory());
+		}
+		#end
 		setDefines();
 		flixel.FlxG.switchState(new TitleState());
 	}
