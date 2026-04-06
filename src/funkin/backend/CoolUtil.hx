@@ -23,7 +23,7 @@ class CoolUtil
 		var daList:String = null;
 		var formatted:Array<String> = path.split(':'); //prevent "shared:", "preload:" and other library names on file path
 		path = formatted[formatted.length-1];
-		if(PsychFileSystem.exists(path)) daList = PsychFile.getContent(path);
+		if(FileSystem.exists(path)) daList = File.getContent(path);
 		return daList != null ? listFromString(daList) : [];
 	}
 
