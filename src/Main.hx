@@ -11,7 +11,9 @@ import openfl.Lib;
 import openfl.display.Sprite;
 import openfl.events.UncaughtErrorEvent;
 
+#if mobile
 import funkin.states.CopyState;
+end
 
 #if (linux && !debug)
 @:cppInclude('../../../../src/_external/gamemode_client.h') // i don't care enough to properly point back to the src folder whatever it works fuck you
@@ -29,22 +31,26 @@ class Main extends Sprite {
 	public static var tweenManager:FlxTweenManager = null;
 
 	public function new() {
-		funkin.backend.CrashHandler.init();
+		super();
+
 		#if mobile
 		Sys.setCwd(StorageUtil.getStorageDirectory());
 		#if android
 		StorageUtil.requestPermissions();
 		#end
 		#end
-
-		super();
+		funkin.backend.CrashHandler.init();
 
 		//Lib.current.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onCrash);
 
-		addChild(new FlxGame(InitState, 1280, 720, 60, true, true));
+		addChild(new FlxGame(InitState, 1280, 720, 60, true));
 		addChild(fpsCounter = new FPSCounter(10, 10, 12));
 		fpsCounter.visible = Settings.data.fpsCounter;
 		addChild(awardsCard = new AwardCard());
+
+		#if android
+		FlxG.android.preventDefaultKeys = [flixel.input.android.FlxAndroidKey.BACK];
+		#end
 
 		@:privateAccess FlxG.keys._nativeCorrection.set("0_43", FlxKey.PLUS);
 	}
@@ -128,11 +134,6 @@ class InitState extends flixel.FlxState {
 		#end 
 
 		setDefines();
-
-		#if android
-		FlxG.android.preventDefaultKeys = [flixel.input.android.FlxAndroidKey.BACK];
-		#end
-
 		flixel.FlxG.switchState(new TitleState());
 	}
 
