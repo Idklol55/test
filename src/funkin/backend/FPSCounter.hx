@@ -51,8 +51,8 @@ class FPSCounter extends Sprite {
 		super();
 
 		#if mobile
-		x += FlxG.game.x;
-		y += FlxG.game.y;
+		x = FlxG.game.x + x;
+		y = FlxG.game.y + y;
 		#end
 
 		addChild(background = new Bitmap(new BitmapData(1, 1, true, 0x99000000)));
