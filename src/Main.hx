@@ -31,8 +31,6 @@ class Main extends Sprite {
 	public static var tweenManager:FlxTweenManager = null;
 
 	public function new() {
-		super();
-
 		#if mobile
 		Sys.setCwd(StorageUtil.getStorageDirectory());
 		#if android
@@ -40,6 +38,8 @@ class Main extends Sprite {
 		#end
 		#end
 		funkin.backend.CrashHandler.init();
+
+		super();
 
 		//Lib.current.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onCrash);
 
