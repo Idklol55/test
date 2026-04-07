@@ -20,26 +20,14 @@ jobs:
         id: setup-ndk
         uses: nttld/setup-ndk@main
         with:
-          ndk-version: r21e
+          ndk-version: r27c
           add-to-path: false
-
-      - name: Setup Java JDK
-        uses: actions/setup-java@main
-        with:
-          distribution: 'zulu'
-          java-version: '17'
 
       - name: Install Haxelib
         run: |
-          sudo apt-get update
-          sudo apt-get install libasound2-dev libpulse-dev \
-            libx11-dev libxext-dev libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev \
-            libgl1-mesa-dev libglu1-mesa-dev
-          haxelib setup ~/haxelib
-          haxelib install hxcpp > /dev/null --quiet
           chmod +x ./setup/unix.sh
           sh ./setup/unix.sh
-  
+
       - name: Configure Android
         run: |
           haxelib run lime config ANDROID_SDK $ANDROID_HOME
@@ -48,7 +36,7 @@ jobs:
           haxelib run lime config ANDROID_SETUP true
 
       - name: Compile
-        run: haxelib run lime build android -final -D officialBuild
+        run: haxelib run lime build android
 
       - name: Upload Artifact
         uses: actions/upload-artifact@main
@@ -56,4 +44,3 @@ jobs:
           name: androidBuild
           path: export/release/android/bin/app/build/outputs/apk/release/*.apk
           if-no-files-found: error
-          
