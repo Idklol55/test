@@ -5,7 +5,7 @@
 	<app title="Friday Night Funkin': Vs. Camellia" file="Camellia" packageName="com.never2x.camellia" package="com.never2x.camellia" main="Main" version="3.0.0" company="Camellia" />
 
 	<window width="1280" height="720" fps="120" background="#000000" hardware="true" vsync="false" />
-	<window if="mobile" orientation="landscape" fullscreen="true" resizable="false" allow-shaders="true" require-shaders="true" />
+	<window if="mobile" orientation="landscape" fullscreen="true" resizable="false" allow-shaders="true" require-shaders="true" allow-high-dpi="true" />
 	<window orientation="landscape" fullscreen="false" resizable="true"/>
 	<window antialiasing="0" allow-high-dpi="true"/>
 
@@ -46,7 +46,7 @@
 
 	<!-- libraries -->
 	<haxelib name="lime"/>
-	<haxelib name="openfl" version="9.3.3" />
+	<haxelib name="openfl"/>
 	<haxelib name="flixel" version="5.5.0" />
 	<haxelib name="flixel-addons" version="3.0.2"/>
 	<haxelib name="hxdiscord_rpc" version="1.2.4" if="DISCORD_ALLOWED"/>
@@ -79,11 +79,12 @@
 
 	<!-- Fix compiling issues -->
     <setenv name="HAXEPATH" value="./"/>
+
+	<!-- Do whatever you want I'm tired uninstall and install everytime -->
+	<certificate path="key.keystore" password="psychengine" alias="psychport" alias-password="psychengine" if="android" unless="debug" />
 	
 	<assets path="alsoft.txt" rename="alsoft.ini" type="text" if="windows"/>
 	<assets path="alsoft.txt" rename="alsoft.conf" type="text" unless="windows"/>
-
-	<certificate path="key.keystore" password="novaFlare" alias="psychport" alias-password="novaFlare" if="android" unless="debug" />
 
 	<icon path="icons/icon16.png" size='16' />
 	<icon path="icons/icon32.png" size='32' />
