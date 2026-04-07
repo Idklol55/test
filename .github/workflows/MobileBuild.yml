@@ -41,8 +41,8 @@ jobs:
       
       - name: Install Haxelib
         run: |
-          haxelib install hmm --quiet
-          haxelib run hmm install --quiet
+          chmod +x ./setup/unix.sh
+          sh ./setup/unix.sh
       
       - name: Setup Lime
         run: |
