@@ -31,13 +31,13 @@ class Main extends Sprite {
 	public static var tweenManager:FlxTweenManager = null;
 
 	public function new() {
+		funkin.backend.CrashHandler.init();
 		#if mobile
 		Sys.setCwd(StorageUtil.getStorageDirectory());
 		#if android
 		StorageUtil.requestPermissions();
 		#end
 		#end
-		funkin.backend.CrashHandler.init();
 
 		super();
 
