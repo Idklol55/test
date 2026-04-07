@@ -33,13 +33,13 @@ class Main extends Sprite {
 	public function new() {
 		super();
 
+		funkin.backend.CrashHandler.init();
 		#if mobile
 		Sys.setCwd(StorageUtil.getStorageDirectory());
 		#if android
 		StorageUtil.requestPermissions();
 		#end
 		#end
-		funkin.backend.CrashHandler.init();
 
 		//Lib.current.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onCrash);
 
@@ -127,7 +127,7 @@ class InitState extends flixel.FlxState {
 			flixel.FlxG.switchState(new CopyState());
 			return;
 		}
-		#end 
+		#end
 		flixel.FlxG.switchState(new TitleState());
 	}
 
