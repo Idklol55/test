@@ -150,11 +150,11 @@ class Paths {
 		
 		// will ignore addons entirely and just use the path given from assets instead if it exists
 		if (overrideAddons) {
-			if (PsychFileSystem.exists('assets/$path')) return 'assets/$path';
+			if (FileSystem.exists('assets/$path')) return 'assets/$path';
 		}
 
 		// if the file doesn't exist in the current played addon
-		if (PsychFileSystem.exists(finalPath())) return finalPath();
+		if (FileSystem.exists(finalPath())) return finalPath();
 
 		// run through the other addons
 		if (Addons.list.length > 0) {
@@ -162,7 +162,7 @@ class Paths {
 				if (addon.disabled) continue;
 
 				mainDirectory = 'addons/${addon.id}';
-				if (PsychFileSystem.exists(finalPath())) return finalPath();
+				if (FileSystem.exists(finalPath())) return finalPath();
 			}
 		}
 		#end
@@ -185,7 +185,7 @@ class Paths {
 		
 		key = get(key, subFolder, true);
 		
-		if (!PsychFileSystem.exists(key)) return null;
+		if (!FileSystem.exists(key)) return null;
 		if (!localTrackedAssets.contains(cacheKey)) localTrackedAssets.push(cacheKey);
 
 		return cacheBitmap(key, cacheKey, pushToGPU);
@@ -242,11 +242,11 @@ class Paths {
 	}
 
 	public static function exists(path:String):Bool {
-		return PsychFileSystem.exists(get(path));
+		return FileSystem.exists(get(path));
 	}
 
 	public static function isDirectory(path:String):Bool {
-		return PsychFileSystem.isDirectory(get(path));
+		return FileSystem.isDirectory(get(path));
 	}
 
 	public static function readDirectory(path:String):Array<String> {
@@ -259,8 +259,8 @@ class Paths {
 		}
 
 		for (directory in directories) {
-			if (!PsychFileSystem.exists('$directory/$path')) continue;
-			for (file in PsychFileSystem.readDirectory('$directory/$path')) list.push(file);
+			if (!FileSystem.exists('$directory/$path')) continue;
+			for (file in FileSystem.readDirectory('$directory/$path')) list.push(file);
 		}
 
 		return list;
@@ -269,9 +269,9 @@ class Paths {
 	// basically sys.io.File.getContent() but a failsafe if the file doesn't exist
 	public static function getFileContent(path:String):String {
 		path = get(path);
-		if (!PsychFileSystem.exists(path)) return '';
+		if (!FileSystem.exists(path)) return '';
 
-		return PsychFile.getContent(path);
+		return File.getContent(path);
 	}
 
 	// now we will return a string
@@ -288,7 +288,7 @@ class Paths {
 
 		var file:Sound = null;
 
-		if (!PsychFileSystem.exists(key)) {
+		if (!FileSystem.exists(key)) {
 			if (beepIfNull) file = flixel.system.FlxAssets.getSound('flixel/sounds/beep');
 			Sys.println('could not find sound file: $key');
 		} else {
@@ -319,7 +319,7 @@ class Paths {
 		if (cachedAssets.exists(cacheKey)) return cachedAssets.get(cacheKey);
 
 		final folder:String = get(path, subFolder, true);
-		if (!PsychFileSystem.exists(folder)) return null;
+		if (!FileSystem.exists(folder)) return null;
 		if (!localTrackedAssets.contains(cacheKey)) localTrackedAssets.push(cacheKey);
 
 		final frames = FlxAnimateFrames.fromAnimate(folder);
@@ -369,12 +369,12 @@ class Paths {
 		if (cachedAssets.exists(cacheKey)) return cachedAssets.get(cacheKey);
 
 		final dataFile:String = get('$path.xml', subFolder, true);
-		if (!PsychFileSystem.exists(dataFile)) return null;
+		if (!FileSystem.exists(dataFile)) return null;
 		if (!localTrackedAssets.contains(cacheKey)) localTrackedAssets.push(cacheKey);
 
-		cachedAssets.set(cacheKey, FlxAtlasFrames.fromSparrow(image(path, subFolder), PsychFile.getContent(dataFile)));
+		cachedAssets.set(cacheKey, FlxAtlasFrames.fromSparrow(image(path, subFolder), File.getContent(dataFile)));
 		return cachedAssets.get(cacheKey);
-		// return FlxAtlasFrames.fromSparrow(image(path, subFolder), PsychFile.getContent(dataFile));
+		// return FlxAtlasFrames.fromSparrow(image(path, subFolder), File.getContent(dataFile));
 	}
 
 	public static dynamic function packerAtlas(path:String, ?subFolder:String = 'images'):FlxFramesCollection {
@@ -382,12 +382,12 @@ class Paths {
 		if (cachedAssets.exists(cacheKey)) return cachedAssets.get(cacheKey);
 
 		final dataFile:String = get('$path.txt', subFolder, true);
-		if (!PsychFileSystem.exists(dataFile)) return null;
+		if (!FileSystem.exists(dataFile)) return null;
 		if (!localTrackedAssets.contains(cacheKey)) localTrackedAssets.push(cacheKey);
 
-		cachedAssets.set(cacheKey, FlxAtlasFrames.fromSpriteSheetPacker(image(path, subFolder), PsychFile.getContent(dataFile)));
+		cachedAssets.set(cacheKey, FlxAtlasFrames.fromSpriteSheetPacker(image(path, subFolder), File.getContent(dataFile)));
 		return cachedAssets.get(cacheKey);
-		// return FlxAtlasFrames.fromSpriteSheetPacker(image(path, subFolder), PsychFile.getContent(dataFile));
+		// return FlxAtlasFrames.fromSpriteSheetPacker(image(path, subFolder), File.getContent(dataFile));
 	}
 
 	public static dynamic function asepriteAtlas(path:String, ?subFolder:String = 'images'):FlxFramesCollection {
@@ -395,11 +395,11 @@ class Paths {
 		if (cachedAssets.exists(cacheKey)) return cachedAssets.get(cacheKey);
 
 		final dataFile:String = get('$path.json', subFolder, true);
-		if (!PsychFileSystem.exists(dataFile)) return null;
+		if (!FileSystem.exists(dataFile)) return null;
 		if (!localTrackedAssets.contains(cacheKey)) localTrackedAssets.push(cacheKey);
 
-		cachedAssets.set(cacheKey, FlxAtlasFrames.fromTexturePackerJson(image(path, subFolder), PsychFile.getContent(dataFile)));
+		cachedAssets.set(cacheKey, FlxAtlasFrames.fromTexturePackerJson(image(path, subFolder), File.getContent(dataFile)));
 		return cachedAssets.get(cacheKey);
-		// return FlxAtlasFrames.fromTexturePackerJson(image(path, subFolder), PsychFile.getContent(dataFile));
+		// return FlxAtlasFrames.fromTexturePackerJson(image(path, subFolder), File.getContent(dataFile));
 	}
 }
