@@ -10,7 +10,7 @@ import flixel.ui.FlxBar;
 import flixel.ui.FlxBar.FlxBarFillDirection;
 import lime.system.ThreadPool;
 #if sys
-import sys.SysFileSystem as SysSysFileSystem;
+import sys.FileSystem as SysSysFileSystem;
 import sys.io.File as SysFile;
 #end
 
