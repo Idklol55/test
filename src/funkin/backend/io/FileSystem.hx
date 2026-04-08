@@ -1,31 +1,8 @@
-/*
- * Copyright (C) 2025 Mobile Porting Team
- *
- * Permission is hereby granted, free of charge, to any person obtaining a
- * copy of this software and associated documentation files (the "Software"),
- * to deal in the Software without restriction, including without limitation
- * the rights to use, copy, modify, merge, publish, distribute, sublicense,
- * and/or sell copies of the Software, and to permit persons to whom the
- * Software is furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
- * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
- * DEALINGS IN THE SOFTWARE.
- */
-
-package funkin.backend.io;
+package backend.io;
 
 import openfl.Assets;
-import funkin.mobile.backend.StorageUtil;
 #if sys
-import sys.FileSystem;
+import sys.FileSystem as SysFileSystem;
 import sys.FileStat;
 #end
 
@@ -37,35 +14,76 @@ using StringTools;
  */
 class FileSystem
 {
-	static final cwd:String = #if android StorageUtil.getExternalStorageDirectory() #else Sys.getCwd() #end;
-
-	inline static function check(path:String):String
+	inline static function cwd(path:String):String
 	{
-		if (path.startsWith(cwd))
+		/*if (path.startsWith(Sys.getCwd()) || path.startsWith(lime.system.System.applicationStorageDirectory))
 			return path;
-		return haxe.io.Path.join([cwd, path]);
+		else
+			return Sys.getCwd() + path;*/
+		return path;
+	}
+
+	static function openflcwd(path:String):String
+	{
+		@:privateAccess
+		for (library in lime.utils.Assets.libraries.keys())
+			if (Assets.exists('$library:$path') && !path.startsWith('$library:'))
+				return '$library:$path';
+
+		return path;
 	}
 
 	public static function exists(path:String):Bool
 	{
-		#if sys
-		if (FileSystem.exists(check(path)))
+		#if ADDONS_ALLOWED
+		#if linux
+		var actualPath:String = cwd(path);
+		actualPath = getCaseInsensitivePath(path);
+		if (actualPath == null)
+			actualPath = path;
+		if (SysFileSystem.exists(actualPath))
+			return true;
+		#else
+		if (SysFileSystem.exists(cwd(path)))
 			return true;
 		#end
-		return Assets.exists(path);
+		#end
+
+		if (Assets.exists(openflcwd(path)))
+			return true;
+
+		return Assets.list().filter(asset -> asset.startsWith(path) && asset != path).length > 0;
 	}
 
 	public static function rename(path:String, newPath:String):Void
 	{
-		#if sys
-		FileSystem.rename(check(path), check(newPath));
+		#if ADDONS_ALLOWED
+		#if linux
+		var actualPath:String = cwd(path);
+		actualPath = getCaseInsensitivePath(path);
+		if (actualPath == null)
+			actualPath = path;
+		if (SysFileSystem.exists(actualPath))
+			SysFileSystem.rename(actualPath, cwd(newPath));
+		#else
+		if (SysFileSystem.exists(cwd(path)))
+			SysFileSystem.rename(cwd(path), cwd(newPath));
+		#end
 		#end
 	}
 
 	public static function stat(path:String):Null<FileStat>
 	{
-		#if sys
-		return FileSystem.stat(check(path));
+		#if ADDONS_ALLOWED
+		#if linux
+		var actualPath:String = cwd(path);
+		actualPath = getCaseInsensitivePath(path);
+		if (actualPath == null)
+			actualPath = path;
+		return SysFileSystem.stat(actualPath);
+		#else
+		return SysFileSystem.stat(cwd(path));
+		#end
 		#else
 		return null;
 		#end
@@ -73,8 +91,16 @@ class FileSystem
 
 	public static function fullPath(path:String):String
 	{
-		#if sys
-		return FileSystem.fullPath(path);
+		#if ADDONS_ALLOWED
+		#if linux
+		var actualPath:String = cwd(path);
+		actualPath = getCaseInsensitivePath(path);
+		if (actualPath == null)
+			actualPath = path;
+		return SysFileSystem.fullPath(actualPath);
+		#else
+		return SysFileSystem.fullPath(cwd(path));
+		#end
 		#else
 		return path;
 		#end
@@ -82,8 +108,16 @@ class FileSystem
 
 	public static function absolutePath(path:String):String
 	{
-		#if sys
-		return FileSystem.absolutePath(path);
+		#if ADDONS_ALLOWED
+		#if linux
+		var actualPath:String = cwd(path);
+		actualPath = getCaseInsensitivePath(path);
+		if (actualPath == null)
+			actualPath = path;
+		return SysFileSystem.absolutePath(actualPath);
+		#else
+		return SysFileSystem.absolutePath(cwd(path));
+		#end
 		#else
 		return path;
 		#end
@@ -91,54 +125,148 @@ class FileSystem
 
 	public static function isDirectory(path:String):Bool
 	{
-		#if sys
-		if (FileSystem.isDirectory(check(path)))
+		#if ADDONS_ALLOWED
+		#if linux
+		var actualPath:String = cwd(path);
+		actualPath = getCaseInsensitivePath(path);
+		if (actualPath == null)
+			actualPath = path;
+		if (SysFileSystem.isDirectory(actualPath))
+			return true;
+		#else
+		if (SysFileSystem.isDirectory(cwd(path)))
 			return true;
 		#end
-		return Assets.list().filter(folder -> folder.startsWith(path) && folder != path).length > 0;
+		#end
+
+		return Assets.list().filter(asset -> asset.startsWith(path) && asset != path).length > 0;
 	}
 
 	public static function createDirectory(path:String):Void
 	{
-		#if sys
-		FileSystem.createDirectory(check(path));
+		#if ADDONS_ALLOWED
+		if (!SysFileSystem.exists(cwd(path)))
+			SysFileSystem.createDirectory(cwd(path));
 		#end
 	}
 
 	public static function deleteFile(path:String):Void
 	{
-		#if sys
-		FileSystem.deleteFile(check(path));
+		#if ADDONS_ALLOWED
+		#if linux
+		var actualPath:String = cwd(path);
+		actualPath = getCaseInsensitivePath(path);
+		if (actualPath == null)
+			actualPath = path;
+		if (SysFileSystem.exists(actualPath))
+			SysFileSystem.deleteFile(actualPath);
+		#else
+		if (SysFileSystem.exists(cwd(path)))
+			SysFileSystem.deleteFile(cwd(path));
+		#end
 		#end
 	}
 
 	public static function deleteDirectory(path:String):Void
 	{
-		#if sys
-		FileSystem.deleteDirectory(check(path));
+		#if ADDONS_ALLOWED
+		#if linux
+		var actualPath:String = cwd(path);
+		actualPath = getCaseInsensitivePath(path);
+		if (actualPath == null)
+			actualPath = path;
+		if (SysFileSystem.exists(actualPath))
+			SysFileSystem.deleteDirectory(actualPath);
+		#else
+		if (SysFileSystem.exists(cwd(path)))
+			SysFileSystem.deleteDirectory(cwd(path));
+		#end
 		#end
 	}
 
 	public static function readDirectory(path:String):Array<String>
 	{
-		#if sys
-		if (FileSystem.exists(check(path)) && FileSystem.isDirectory(check(path)))
-			return FileSystem.readDirectory(check(path));
+		#if ADDONS_ALLOWED
+		#if linux
+		var actualPath:String = cwd(path);
+		actualPath = getCaseInsensitivePath(path);
+		if (actualPath == null)
+			actualPath = path;
+		if (SysFileSystem.exists(actualPath) && SysFileSystem.isDirectory(actualPath))
+			return SysFileSystem.readDirectory(actualPath);
+		#else
+		if (SysFileSystem.exists(cwd(path)) && SysFileSystem.isDirectory(cwd(path)))
+			return SysFileSystem.readDirectory(cwd(path)	);
+		#end
 		#end
 
-		final dirs:Array<String> = [];
-		for (item in Assets.list().filter(f -> f.startsWith(path)))
+		var filteredList:Array<String> = Assets.list().filter(f -> f.startsWith(path));
+		var results:Array<String> = [];
+		for (i in filteredList.copy())
+		{
+			var slashsCount:Int = path.split('/').length;
+			if (path.endsWith('/'))
+				slashsCount -= 1;
+
+			if (i.split('/').length - 1 != slashsCount)
+				filteredList.remove(i);
+		}
+		for (item in filteredList)
 		{
 			@:privateAccess
 			for (library in lime.utils.Assets.libraries.keys())
 			{
-				final libPath:String = '$library:$item';
-				if (library != 'default' && Assets.exists(libPath) && !dirs.contains(libPath))
-					dirs.push(libPath);
-				else if (Assets.exists(item) && !dirs.contains(item))
-					dirs.push(item);
+				var libPath:String = '$library:$item';
+				if (library != 'default' && Assets.exists(libPath) && !results.contains(libPath))
+					results.push(libPath);
+				else if (Assets.exists(item) && !results.contains(item))
+					results.push(item);
 			}
 		}
-		return dirs.map(f -> f.substr(f.lastIndexOf("/") + 1));
+		return results.map(f -> f.substr(f.lastIndexOf("/") + 1));
 	}
+
+	#if (linux && ADDONS_ALLOWED)
+	static function getCaseInsensitivePath(path:String):String
+	{
+		if (SysFileSystem.exists(path))
+			return path;
+
+		var parts:Array<String> = path.split("/");
+		var current:String = Sys.getCwd();
+
+		if (path.charAt(0) == "/")
+			current = "/";
+
+		for (part in parts)
+		{
+			if (part == "")
+				continue;
+
+			if (!SysFileSystem.exists(current) || !SysFileSystem.isDirectory(current))
+				return null;
+
+			var files:Array<String> = SysFileSystem.readDirectory(current);
+
+			var found:Bool = false;
+			for (f in files)
+			{
+				if (f.toLowerCase() == part.toLowerCase())
+				{
+					if (current == "/")
+						current += f;
+					else
+						current += "/" + f;
+					found = true;
+					break;
+				}
+			}
+
+			if (!found)
+				return null;
+		}
+
+		return current;
+	}
+	#end
 }
