@@ -37,8 +37,10 @@ import flixel.group.FlxSpriteGroup;
 import flixel.group.FlxGroup;
 
 // haxe
+#if sys
 import sys.FileSystem;
 import sys.io.File;
+#end
 
 // instead of using json5 by default
 // we allow both formats to be used
