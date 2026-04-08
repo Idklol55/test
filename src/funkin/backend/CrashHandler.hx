@@ -105,10 +105,10 @@ class CrashHandler
 	{
 		try
 		{
-			if (!PsychFileSystem.exists('logs'))
-				PsychFileSystem.createDirectory('logs');
+			if (!FileSystem.exists('logs'))
+				FileSystem.createDirectory('logs');
 
-			PsychFile.saveContent('logs/' + Date.now().toString().replace(' ', '-').replace(':', "'") + '.txt', message);
+			File.saveContent('logs/' + Date.now().toString().replace(' ', '-').replace(':', "'") + '.txt', message);
 		}
 		catch (e:haxe.Exception)
 			trace('Couldn\'t save error message. (${e.message})');
