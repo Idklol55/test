@@ -1,7 +1,9 @@
 package funkin.backend;
 
 import haxe.ds.StringMap;
+#if sys
 import sys.io.File;
+#end
 
 class LanguageHandler {
     private static final translations:StringMap<StringMap<String>> = new StringMap();
@@ -17,13 +19,13 @@ class LanguageHandler {
 		for(addon in Addons.list){
 			if(addon.disabled)continue;
 			var path = 'addons/${addon.id}/data/Translations.csv';
-			if(!PsychFileSystem.exists(path))continue;
+			if(!FileSystem.exists(path))continue;
 			translationFiles.push(path);
 		}
 		#end
 		
 		for(path in translationFiles){
-			final csvData = PsychFile.getContent(path);
+			final csvData = File.getContent(path);
 			final lines = csvData.split("\n");
 			if (lines.length == 0) continue;
 
