@@ -50,19 +50,14 @@ class FPSCounter extends Sprite {
 	public function new(x:Float, y:Float, size:Int) {
 		super();
 
-		#if mobile
-		x = FlxG.game.x;
-		y = FlxG.game.y;
-		#end
-
 		addChild(background = new Bitmap(new BitmapData(1, 1, true, 0x99000000)));
-		background.x = x - 5;
-		background.y = y - 5;
+		background.x = #if mobile FlxG.game.x + #end x - 5;
+		background.y = #if mobile FlxG.game.y + #end y - 5;
 
         addChild(text = new TextField());
         text.autoSize = LEFT;
-		text.x = x;
-		text.y = y;
+		text.x = #if mobile FlxG.game.x + #end x;
+		text.y = #if mobile FlxG.game.y + #end y;
         text.wordWrap = text.mouseEnabled = text.selectable = false;
         text.defaultTextFormat = new TextFormat(font, size, 0xFFFFFFF, JUSTIFY);
 	}
