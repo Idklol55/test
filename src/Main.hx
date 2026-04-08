@@ -50,10 +50,6 @@ class Main extends Sprite {
 
 		#if android FlxG.android.preventDefaultKeys = [BACK]; #end
 
-		#if mobile
-		//FlxG.stage.window.onResize.add((w:Int, h:Int) -> fpsCounter.setScale());
-		#end
-
 		@:privateAccess FlxG.keys._nativeCorrection.set("0_43", FlxKey.PLUS);
 	}
 
