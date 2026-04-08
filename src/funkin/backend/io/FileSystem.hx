@@ -1,4 +1,4 @@
-package backend.io;
+package funkin.backend.io;
 
 import openfl.Assets;
 #if sys
