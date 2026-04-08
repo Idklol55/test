@@ -50,14 +50,19 @@ class FPSCounter extends Sprite {
 	public function new(x:Float, y:Float, size:Int) {
 		super();
 
+		#if mobile
+		x += FlxG.game.x;
+		y += FlxG.game.y;
+		#end
+
 		addChild(background = new Bitmap(new BitmapData(1, 1, true, 0x99000000)));
-		background.x = #if mobile FlxG.game.x + #end x - 5;
-		background.y = #if mobile FlxG.game.y + #end y - 5;
+		background.x = x - 5;
+		background.y = y - 5;
 
         addChild(text = new TextField());
         text.autoSize = LEFT;
-		text.x = #if mobile FlxG.game.x + #end x;
-		text.y = #if mobile FlxG.game.y + #end y;
+		text.x = x;
+		text.y = y;
         text.wordWrap = text.mouseEnabled = text.selectable = false;
         text.defaultTextFormat = new TextFormat(font, size, 0xFFFFFFF, JUSTIFY);
 	}
@@ -96,12 +101,4 @@ class FPSCounter extends Sprite {
 		background.width = text.width + 10;
 		background.height = text.height + 10;
 	}
-
-	#if mobile
-	public inline function setScale(?scale:Float){
-		if(scale == null)
-			scale = Math.min(FlxG.stage.window.width / FlxG.width, FlxG.stage.window.height / FlxG.height);
-		scaleX = scaleY = #if android (scale > 1 ? scale : 1) #else (scale < 1 ? scale : 1) #end;
-	}
-	#end
 }
