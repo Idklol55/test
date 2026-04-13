@@ -50,10 +50,10 @@ class FPSCounter extends Sprite {
 	public function new(x:Float, y:Float, size:Int) {
 		super();
 
-		#if mobile
+		/*#if mobile
 		x += FlxG.game.x;
 		y += FlxG.game.y;
-		#end
+		#end*/
 
 		addChild(background = new Bitmap(new BitmapData(1, 1, true, 0x99000000)));
 		background.x = x - 5;
