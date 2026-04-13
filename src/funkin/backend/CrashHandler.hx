@@ -3,6 +3,10 @@ package funkin.backend;
 import openfl.events.UncaughtErrorEvent;
 import openfl.events.ErrorEvent;
 import openfl.errors.Error;
+#if sys
+import sys.FileSystem;
+import sys.io.File;
+#end
 
 using StringTools;
 using flixel.util.FlxArrayUtil;
@@ -101,10 +105,10 @@ class CrashHandler
 	{
 		try
 		{
-			if (!FileSystem.exists('logs'))
-				FileSystem.createDirectory('logs');
+			if (!PsychFileSystem.exists('logs'))
+				PsychFileSystem.createDirectory('logs');
 
-			File.saveContent('logs/' + Date.now().toString().replace(' ', '-').replace(':', "'") + '.txt', message);
+			PsychFile.saveContent('logs/' + Date.now().toString().replace(' ', '-').replace(':', "'") + '.txt', message);
 		}
 		catch (e:haxe.Exception)
 			trace('Couldn\'t save error message. (${e.message})');
