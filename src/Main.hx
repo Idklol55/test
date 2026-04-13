@@ -48,7 +48,11 @@ class Main extends Sprite {
 		fpsCounter.visible = Settings.data.fpsCounter;
 		addChild(awardsCard = new AwardCard());
 
+		#if mobile
+		fpsCounter.x += FlxG.game.x;
+		fpsCounter.y += FlxG.game.y;
 		#if android FlxG.android.preventDefaultKeys = [BACK]; #end
+		#end
 
 		@:privateAccess FlxG.keys._nativeCorrection.set("0_43", FlxKey.PLUS);
 	}
