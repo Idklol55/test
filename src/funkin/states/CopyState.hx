@@ -9,10 +9,6 @@ import haxe.io.Path;
 import flixel.ui.FlxBar;
 import flixel.ui.FlxBar.FlxBarFillDirection;
 import lime.system.ThreadPool;
-#if sys
-import sys.FileSystem as SysFileSystem;
-import sys.io.File as SysFile;
-#end
 
 /**
  * ...
@@ -95,9 +91,9 @@ class CopyState extends FlxState
 				{
 					CoolUtil.showPopUp(failedFiles.join('\n'), 'Failed To Copy ${failedFiles.length} File.');
 					final folder:String = #if android StorageUtil.getExternalStorageDirectory() + #else Sys.getCwd() + #end 'logs/';
-					if (!SysFileSystem.exists(folder))
-						SysFileSystem.createDirectory(folder);
-					SysFile.saveContent(folder + Date.now().toString().replace(' ', '-').replace(':', "'") + '-CopyState' + '.txt', failedFilesStack.join('\n'));
+					if (!FileSystem.exists(folder))
+						FileSystem.createDirectory(folder);
+					File.saveContent(folder + Date.now().toString().replace(' ', '-').replace(':', "'") + '-CopyState' + '.txt', failedFilesStack.join('\n'));
 				}
 
 				FlxG.sound.play(Paths.audio("menu_finish", 'sfx')).onComplete = () ->
@@ -120,11 +116,11 @@ class CopyState extends FlxState
 
 	public function copyAsset(file:String)
 	{
-		if (!SysFileSystem.exists(file))
+		if (!FileSystem.exists(file))
 		{
 			var directory = Path.directory(file);
-			if (!SysFileSystem.exists(directory))
-				SysFileSystem.createDirectory(directory);
+			if (!FileSystem.exists(directory))
+				FileSystem.createDirectory(directory);
 			try
 			{
 				if (OpenFLAssets.exists(getFile(file)))
@@ -140,7 +136,7 @@ class CopyState extends FlxState
 						else
 						#end
 							path = file;
-						SysFile.saveBytes(path, getFileBytes(getFile(file)));
+						File.saveBytes(path, getFileBytes(getFile(file)));
 					}		
 				}
 				else
@@ -170,9 +166,9 @@ class CopyState extends FlxState
 			var fileData:String = OpenFLAssets.getText(getFile(file));
 			if (fileData == null)
 				fileData = '';
-			if (!SysFileSystem.exists(directory))
-				SysFileSystem.createDirectory(directory);
-			SysFile.saveContent(Path.join([directory, fileName]), fileData);
+			if (!FileSystem.exists(directory))
+				FileSystem.createDirectory(directory);
+			File.saveContent(Path.join([directory, fileName]), fileData);
 		}
 		catch (e:haxe.Exception)
 		{
@@ -215,11 +211,11 @@ class CopyState extends FlxState
 		var assets = locatedFiles.filter(folder -> folder.startsWith('assets/'));
 		var addons = locatedFiles.filter(folder -> folder.startsWith('addons/'));
 		locatedFiles = assets.concat(addons);
-		locatedFiles = locatedFiles.filter(file -> !SysFileSystem.exists(file));
+		locatedFiles = locatedFiles.filter(file -> !FileSystem.exists(file));
 		#if android
 		for (file in locatedFiles)
 			if (file.startsWith('addons/'))
-				locatedFiles = locatedFiles.filter(file -> !SysFileSystem.exists(StorageUtil.getExternalStorageDirectory() + file));
+				locatedFiles = locatedFiles.filter(file -> !FileSystem.exists(StorageUtil.getExternalStorageDirectory() + file));
 		#end
 
 		var filesToRemove:Array<String> = [];
