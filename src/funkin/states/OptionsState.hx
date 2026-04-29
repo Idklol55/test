@@ -392,7 +392,7 @@ class OptionsState extends FunkinState {
 		if (waitingForKey && !listGrp.enterHit) {
 			final opt = curOptList[curSelected];
 			final keys:Array<FlxKey> = cast opt.value;
-			if (FlxG.keys.justPressed.ESCAPE) {
+			if (FlxG.keys.justPressed.ESCAPE #if android || FlxG.android.justReleased.BACK #end) {
 				waitingForKey = false;
 				FlxG.sound.play(Paths.audio("menu_cancel", 'sfx'));
 
@@ -427,7 +427,7 @@ class OptionsState extends FunkinState {
 		} else if (selCategory > -2 && !listGrp.enterHit) {
 			if (selCategory >= 0) 
 				optInputs(delta);
-			else if (Controls.justPressed('back') || FlxG.mouse.justPressedRight) {
+			else if (Controls.justPressed('back') || FlxG.mouse.justPressedRight #if android || FlxG.android.justReleased.BACK #end) {
 				descTxt.text = "";
 				selCategory = -2;
 				listGrp.useMouse = listGrp.useInputs = false;
