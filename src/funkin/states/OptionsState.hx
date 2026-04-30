@@ -604,8 +604,11 @@ class OptionsState extends FunkinState {
 
 		bg.speed = 5;
 		FlxG.sound.play(Paths.audio("menu_move", 'sfx'));
+		
+		firstPress = false;
 	}
 
+	private var firstPress:Bool = false;
 	function optInputs(delta:Float) {
 		if (FlxG.mouse.x >= optSel.x && FlxG.mouse.x <= optSel.x + optSel.width) {
 			for (i in 0...optTxt.length) {
@@ -615,7 +618,7 @@ class OptionsState extends FunkinState {
 				var top = txt.y + (txt.height - height) * 0.5;
 				if (FlxG.mouse.y >= top && FlxG.mouse.y <= top + height) {
 					retargetOpt(listGrp.mouseMoved ? i : curSelected);
-					if (FlxG.mouse.justPressed) {
+					if (FlxG.mouse.justPressed && firstPress) {
 						if (curOptList[curSelected].type == ButtonOption) {
 							curOptList[curSelected].change(false);
 							FlxG.sound.play(Paths.audio(curOptList[curSelected].sound, 'sfx'));
@@ -646,8 +649,10 @@ class OptionsState extends FunkinState {
 		final downJustPressed:Bool = Controls.justPressed('ui_down');
 		final leftJustPressed:Bool = Controls.justPressed('ui_left');
 
-		if (downJustPressed || Controls.justPressed('ui_up'))
+		if (downJustPressed || Controls.justPressed('ui_up')) {
 			retargetOpt(FlxMath.wrap(curSelected + (downJustPressed ? 1 : -1), 0, curOptList.length - 1));
+			firstPress = true;
+		}
 
 		final curOption = curOptList[curSelected];
 		if ((leftJustPressed || Controls.justPressed('ui_right')) && curOption.type != ButtonOption) {
