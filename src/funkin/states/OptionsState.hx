@@ -576,7 +576,10 @@ class OptionsState extends FunkinState {
 	}
 
 	function retargetOpt(target:Int) {
-		if (target == curSelected) return;
+		if (target == curSelected) {
+			if (FlxG.mouse.justPressed) firstPress = true;
+			return;
+		}
 
 		optTxt.members[curSelected].color = 0xFFFFFFFF;
 		optTxt.members[curSelected].font = Paths.font("Rockford-NTLG Light.ttf");
@@ -687,7 +690,7 @@ class OptionsState extends FunkinState {
 			}
 		}
 
-		if (Controls.justPressed("back") || FlxG.mouse.justPressedRight) {
+		if (Controls.justPressed("back") || FlxG.mouse.justPressedRight #if android || FlxG.android.justReleased.BACK #end) {
 			selCategory = -1;
 			listGrp.useInputs = true;
 			FlxG.sound.play(Paths.audio("menu_cancel", 'sfx'));
