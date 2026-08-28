@@ -46,7 +46,7 @@ jobs:
           haxelib install openfl 9.3.3 --quiet
           haxelib install flixel 5.5.0 --quiet
           haxelib git hscript-iris https://github.com/crowplexus/hscript-iris --quiet
-          haxelib git flixel-animate https://github.com/MaybeMaru/flixel-animate --quiet
+          haxelib git flixel-animate --quiet
           haxelib git moonchart https://github.com/MaybeMaru/moonchart --quiet
           haxelib install hxvlc 1.9.2 --quiet
           haxelib git hxcpp https://github.com/kittycathy233/hxcpp --quiet
